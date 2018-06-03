@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>BOOTH fest.</title>
+  <style>
+    * {
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+  </style>
+  <script src="https://aframe.io/releases/0.8.2/aframe.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+  <script>
+    window.addEventListener('load', function(){
+      var $scene = document.querySelector('a-scene');
+      var $sky = document.querySelector('a-sphere.sky');
+      var $camera = document.querySelector('a-camera');
+      var template = document.querySelector('#shop-template');
+      var man0Template = document.querySelector('#man0-template');
+      var man1Template = document.querySelector('#man1-template');
+      var woman0Template = document.querySelector('#woman0-template');
+      var woman1Template = document.querySelector('#woman1-template');
+      var cameraRotation = { x: 0, y: 0, z: 0 };
+
+      function addShop(position){
+        var el = document.importNode(template.content, true);
+        var price = Math.floor(5 + Math.random() * 7) * 100;
+        var imagePrefix = Math.floor(1 + Math.random() * 4);
+        var imageSuffix = ("0" + Math.floor(1 + Math.random() * 10)).slice(-2);
+        el.querySelector('.shop').setAttribute('position', [position.x, position.y, position.z].join(' '));
+        el.querySelector('.price').setAttribute('value', "" + price + ' YEN');
+        el.querySelector('.item-image').setAttribute('src', "./item_images/" + imagePrefix + imageSuffix + "_s.jpg");
+
+        $scene.appendChild(el);
+      }
+      function addHuman(){
+        var humanTemplates = [man0Template, man1Template, woman0Template, woman1Template];
+        var template = humanTemplates[Math.floor(Math.random() * humanTemplates.length)];
+        var el = document.importNode(template.content, true);
+        el.querySelector('a-entity').setAttribute('position', [Math.random() * 30, 0, Math.random() * -10].join(' '));
+
+        $scene.appendChild(el);
+      };
+      // Shop追加
+      for (var i = 0; i < 10; i++) {
+        for (var j = 0; j < 10; j++) {
+          addShop({ x: i * 3 , y: 0.35, z: -j * 1.0 });
+          addShop({ x: i * 3 + 0.7, y: 0.35, z: -j * 1.0 });
+        }
+      }
+      // Human追加
+      for (var i = 0; i < 50; i++) {
+        addHuman();
+      }
+
+      /* TODO: A-Frame0.8.2で動かなくなったので調整する
+      var draw = function(){
+        var rotation = $camera.getAttribute('rotation');
+        rotation.x += cameraRotation.x;
+        rotation.y += cameraRotation.y;
+        rotation.z += cameraRotation.z;
+        $camera.setAttribute('rotation', [rotation.x, rotation.y, rotation.z].join(' '));
+
+        window.requestAnimationFrame(draw);
+      };
+      window.requestAnimationFrame(draw);
+
+      window.addEventListener('keydown', function(event){
+        switch(event.key){
+          case 'e':
+            cameraRotation.y = -2;
+          break
+          case 'q':
+            cameraRotation.y = 2;
+          break
+        }
+      });
+      window.addEventListener('keyup', function(event){
+        switch(event.key){
+          case 'e':
+            cameraRotation.y = 0;
+          break
+          case 'q':
+            cameraRotation.y = 0;
+          break
+        }
+      });
+      */
+    });
+  </script>
+</head>
+<body>
+  <template id="shop-template">
+    <a-entity class="shop">
+      <a-box color="#808080" width="0.6" height="0.7" depth="0.9"></a-box>
+      <a-box class="item-image" src="man0.png" width="0.5" height="0.5" depth="0.5" position="0 0.6 0"></a-box>
+      <a-text class="price" value="-" color="#ff8080" position="0 0.38 0.35" rotation="-54 0 0" align="center" width="3"></a-text>
+    </a-entity>
+  </template>
+  <template id="man0-template">
+    <a-entity>
+      <a-image src="man0.png" width="0.68" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
+    </a-entity>
+  </template>
+  <template id="man1-template">
+    <a-entity>
+      <a-image src="man1.png" width="0.68" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
+    </a-entity>
+  </template>
+  <template id="woman0-template">
+    <a-entity>
+      <a-image src="woman0.png" width="0.68" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
+    </a-entity>
+  </template>
+  <template id="woman1-template">
+    <a-entity>
+      <a-image src="woman1.png" width="0.68" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
+    </a-entity>
+  </template>
+
+  <a-scene fog="type: linear; color: #ffffff; far: 12;">
+    <a-camera rotation="-10 0 0">
+      <a-plane position="0 0 -0.5" scale="0.005 0.005 0" color="#ff0000"></a-plane>
+    </a-camera>
+    <a-sky src="./sky.jpg" material="fog: false"></a-sky>
+  </a-scene>
+</body>
+</html>
