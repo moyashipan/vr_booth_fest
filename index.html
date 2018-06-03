@@ -99,26 +99,32 @@
   </template>
   <template id="man0-template">
     <a-entity>
-      <a-image src="human_images/man0.png" width="0.85" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
+      <a-image src="#man0-image" width="0.85" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
     </a-entity>
   </template>
   <template id="man1-template">
     <a-entity>
-      <a-image src="human_images/man1.png" width="0.85" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
+      <a-image src="#man1-image" width="0.85" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
     </a-entity>
   </template>
   <template id="woman0-template">
     <a-entity>
-      <a-image src="human_images/woman0.png" width="0.85" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
+      <a-image src="#woman0-image" width="0.85" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
     </a-entity>
   </template>
   <template id="woman1-template">
     <a-entity>
-      <a-image src="human_images/woman1.png" width="0.85" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
+      <a-image src="#woman1-image" width="0.85" height="1.7" position="1 0.85 0" alpha-test="0.5"></a-image>
     </a-entity>
   </template>
 
   <a-scene fog="type: linear; color: #ffffff; far: 12;">
+    <a-assets>
+      <img id="man0-image" src="human_images/man0.png">
+      <img id="man1-image" src="human_images/man1.png">
+      <img id="woman0-image" src="human_images/woman0.png">
+      <img id="woman1-image" src="human_images/woman1.png">
+    </a-assets>
     <a-camera rotation="-10 0 0">
       <a-plane position="0 0 -0.5" scale="0.005 0.005 0" color="#ff0000"></a-plane>
     </a-camera>
